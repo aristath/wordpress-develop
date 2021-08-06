@@ -34,6 +34,12 @@ require ABSPATH . WPINC . '/class.wp-styles.php';
 /** WordPress Styles Functions */
 require ABSPATH . WPINC . '/functions.wp-styles.php';
 
+/** WordPress Webfonts Functions */
+require ABSPATH . WPINC . '/class-wp-fonts-provider.php';
+require ABSPATH . WPINC . '/class-wp-fonts-provider-local.php';
+require ABSPATH . WPINC . '/class-wp-fonts-provider-google.php';
+require ABSPATH . WPINC . '/functions.wp-webfonts.php';
+
 /**
  * Registers TinyMCE scripts.
  *
@@ -2299,7 +2305,7 @@ function wp_enqueue_global_styles() {
 		! is_admin()
 	);
 
-	$stylesheet = null;
+	$stylesheet     = null;
 	$transient_name = 'global_styles_' . get_stylesheet();
 	if ( $can_use_cache ) {
 		$cache = get_transient( $transient_name );
