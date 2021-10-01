@@ -616,31 +616,20 @@ class WP_Upgrader {
 			}
 		}
 
-		// Delete destination if it already exists.
-		if ( $wp_filesystem->exists( $remote_destination ) ) {
-			$wp_filesystem->delete( $remote_destination, true );
+		// Create destination if needed.
+		if ( ! $wp_filesystem->exists( $remote_destination ) ) {
+			if ( ! $wp_filesystem->mkdir( $remote_destination, FS_CHMOD_DIR ) ) {
+				return new WP_Error( 'mkdir_failed_destination', $this->strings['mkdir_failed'], $remote_destination );
+			}
 		}
 
-		// Move new version of item into place.
-		$result = $wp_filesystem->move( $source, $remote_destination, true );
-
-		// If moving failed, fallback to copy.
-		if ( ! $result ) {
-			// Create destination if needed.
-			if ( ! $wp_filesystem->exists( $remote_destination ) ) {
-				if ( ! $wp_filesystem->mkdir( $remote_destination, FS_CHMOD_DIR ) ) {
-					return new WP_Error( 'mkdir_failed_destination', $this->strings['mkdir_failed'], $remote_destination );
-				}
+		// Copy new version of item into place.
+		$result = copy_dir( $source, $remote_destination );
+		if ( is_wp_error( $result ) ) {
+			if ( $args['clear_working'] ) {
+				$wp_filesystem->delete( $remote_source, true );
 			}
-
-			// Copy new version of item into place.
-			$result = copy_dir( $source, $remote_destination );
-			if ( is_wp_error( $result ) ) {
-				if ( $args['clear_working'] ) {
-					$wp_filesystem->delete( $remote_source, true );
-				}
-				return $result;
-			}
+			return $result;
 		}
 
 		// Clear the working folder?
