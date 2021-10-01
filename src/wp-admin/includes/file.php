@@ -1936,7 +1936,7 @@ function move_dir( $from, $to ) {
 	global $wp_filesystem;
 
 	// Try using rename first. if that fails (for example, source is read only) try copy.
-	if ( @rename( $source, $destination ) ) {
+	if ( @rename( $from, $to ) ) {
 		return true;
 	}
 
