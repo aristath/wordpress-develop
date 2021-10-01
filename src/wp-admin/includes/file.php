@@ -1918,6 +1918,48 @@ function copy_dir( $from, $to, $skip_list = array() ) {
 }
 
 /**
+ * Moves a directory from one location to another via the WordPress Filesystem
+ * Abstraction.
+ *
+ * Assumes that WP_Filesystem() has already been called and setup.
+ *
+ * @since 5.9.0
+ *
+ * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
+ *
+ * @param string   $from Source directory.
+ * @param string   $to   Destination directory.
+ *
+ * @return true|WP_Error True on success, WP_Error on failure.
+ */
+function move_dir( $from, $to ) {
+	global $wp_filesystem;
+
+	// Try using rename first. if that fails (for example, source is read only) try copy.
+	if ( @rename( $source, $destination ) ) {
+		return true;
+	}
+
+	// Create destination if needed.
+	if ( ! $wp_filesystem->exists( $to ) && ! $wp_filesystem->mkdir( $to, FS_CHMOD_DIR ) ) {
+		return new WP_Error( 'mkdir_failed_destination', __( 'Could not create directory.' ), $to );
+	}
+
+	// Try to copy the directory.
+	$result = copy_dir( $from, $to );
+
+	// If there was an error, return it.
+	if ( is_wp_error( $result ) ) {
+		return $result;
+	}
+
+	// If copy is successful, delete the original.
+	$wp_filesystem->delete( $from, true );
+
+	return true;
+}
+
+/**
  * Initializes and connects the WordPress Filesystem Abstraction classes.
  *
  * This function will include the chosen transport and attempt connecting.
