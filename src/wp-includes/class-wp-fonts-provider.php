@@ -15,15 +15,6 @@
 abstract class WP_Fonts_Provider {
 
 	/**
-	 * The provider's unique ID.
-	 *
-	 * @access protected
-	 * @since 5.9.0
-	 * @var string
-	 */
-	protected $id;
-
-	/**
 	 * An array of URLs to preconnect to.
 	 *
 	 * @access protected
@@ -82,17 +73,6 @@ abstract class WP_Fonts_Provider {
 	 * @var array
 	 */
 	protected $api_params = array();
-
-	/**
-	 * Get the provider's unique ID.
-	 *
-	 * @access public
-	 * @since 5.9.0
-	 * @return string
-	 */
-	public function get_id() {
-		return $this->id;
-	}
 
 	/**
 	 * Get the root URL for the provider.

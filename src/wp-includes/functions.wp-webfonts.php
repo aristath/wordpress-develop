@@ -113,8 +113,10 @@ function _wp_webfont_add_preconnect_links( $params ) {
 		'wp_head',
 		function() use ( $provider, &$preconnect_urls_added_from_api ) {
 
+			$provider_id = $provider->get_params()['provider'];
+
 			// Early exit if the provider has already added preconnect links.
-			if ( in_array( $provider->get_id(), $preconnect_urls_added_from_api ) ) {
+			if ( in_array( $provider_id, $preconnect_urls_added_from_api ) ) {
 				return;
 			}
 
@@ -133,7 +135,7 @@ function _wp_webfont_add_preconnect_links( $params ) {
 				}
 				echo '>' . "\n";
 			}
-			$preconnect_urls_added_from_api[] = $provider->get_id();
+			$preconnect_urls_added_from_api[] = $provider_id;
 		}
 	);
 }

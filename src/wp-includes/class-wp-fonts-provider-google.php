@@ -13,15 +13,6 @@
 final class WP_Fonts_Provider_Google extends WP_Fonts_Provider {
 
 	/**
-	 * The provider's unique ID.
-	 *
-	 * @access protected
-	 * @since 5.9.0
-	 * @var string
-	 */
-	protected $id = 'google';
-
-	/**
 	 * An array of URLs to preconnect to.
 	 *
 	 * @access protected
