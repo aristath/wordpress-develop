@@ -50,10 +50,17 @@ function wp_register_font_collection( $fonts ) {
  * @return string The generated styles.
  */
 function wp_webfonts_collection_generate_styles( $fonts ) {
-	$styles = '';
+	$styles                  = '';
+	$collections_by_provider = array();
 	foreach ( $fonts as $font ) {
-		$styles .= wp_webfont_generate_styles( $font );
-
+		$provider_id = isset( $font['provider'] ) ? $font['provider'] : 'local';
+		if ( ! isset( $collections_by_provider[ $provider_id ] ) ) {
+			$collections_by_provider[ $provider_id ] = array();
+		}
+		$collections_by_provider[ $provider_id ][] = $font;
+	}
+	foreach ( $collections_by_provider as $provider_id => $fonts ) {
+		$styles .= wp_webfonts_provider_generate_styles( $provider_id, $fonts );
 		// Add preconnect links for external webfonts.
 		_wp_webfont_add_preconnect_links( $font );
 	}
@@ -61,30 +68,37 @@ function wp_webfonts_collection_generate_styles( $fonts ) {
 }
 
 /**
- * Generate styles for a webfont.
+ * Generate styles for a webfonts provider.
  *
  * @since 5.9.0
  *
- * @param array $params The webfont parameters.
+ * @param string $provider_id The provider ID.
+ * @param array  $fonts       An array of fonts.
  *
  * @return string The generated styles.
  */
-function wp_webfont_generate_styles( $params ) {
-	// Get the array of providers.
-	$providers = wp_get_webfont_providers();
-
-	// Fallback to local provider if none is specified.
-	$provider_id = isset( $params['provider'] ) ? $params['provider'] : 'local';
-	if ( ! isset( $providers[ $provider_id ] ) ) {
+function wp_webfonts_provider_generate_styles( $provider_id, $fonts ) {
+	$provider = wp_webfonts_get_provider( $provider_id );
+	if ( ! $provider ) {
 		return '';
 	}
-	$provider = $providers[ $provider_id ];
+	return $provider->get_fonts_collection_css( $fonts );
+}
 
-	// Set the $params to the object.
-	$provider->set_params( $params );
-
-	// Get the CSS.
-	return $provider->get_css();
+/**
+ * Get a webfonts provider.
+ *
+ * @since 5.9.0
+ *
+ * @param string $provider_id The provider ID.
+ *
+ * @return object The provider.
+ */
+function wp_webfonts_get_provider( $provider_id ) {
+	$providers = wp_get_webfont_providers();
+	if ( isset( $providers[ $provider_id ] ) ) {
+		return $providers[ $provider_id ];
+	}
 }
 
 /**
@@ -116,7 +130,7 @@ function _wp_webfont_add_preconnect_links( $params ) {
 			$provider_id = $provider->get_params()['provider'];
 
 			// Early exit if the provider has already added preconnect links.
-			if ( in_array( $provider_id, $preconnect_urls_added_from_api ) ) {
+			if ( in_array( $provider_id, $preconnect_urls_added_from_api, true ) ) {
 				return;
 			}
 
