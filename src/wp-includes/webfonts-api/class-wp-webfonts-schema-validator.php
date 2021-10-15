@@ -406,17 +406,14 @@ class WP_Webfonts_Schema_Validator {
 			return false;
 		}
 
-		$valid = false;
+		$valid = true;
 		foreach ( $parts as $part ) {
-			// Check if part is one of the default values.
-			if ( in_array( $part, self::VALID_FONT_STRETCH, true ) ) {
-				$valid = true;
-				continue;
-			}
-
-			// Check if value is a percentage.
-			if ( preg_match( '/^(\d+)%$/', $part, $matches ) ) {
-				$valid = true;
+			// Check if part is one of the default values, or a percentage.
+			if (
+				! in_array( $part, self::VALID_FONT_STRETCH, true ) &&
+				! preg_match( '/^(\d+)%$/', $part, $matches )
+			) {
+				$valid = false;
 			}
 		}
 
