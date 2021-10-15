@@ -344,7 +344,7 @@ class WP_Webfonts_Schema_Validator {
 	private function is_font_weight_valid() {
 
 		// Require a value.
-		if ( empty( $this->webfont['fontWeight'] ) ) {
+		if ( empty( $this->webfont['fontWeight'] ) || ! is_string( $this->webfont['fontWeight'] ) ) {
 			trigger_error( __( 'Webfont font weight must be a non-empty string.' ) );
 
 			return false;
