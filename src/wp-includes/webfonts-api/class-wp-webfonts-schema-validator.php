@@ -62,6 +62,49 @@ class WP_Webfonts_Schema_Validator {
 	);
 
 	/**
+	 * Valid font-variant values.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @var string[]
+	 */
+	const VALID_FONT_VARIANTS = array(
+		'normal',
+		'none',
+		'common-ligatures',
+		'no-common-ligatures',
+		'discretionary-ligatures',
+		'no-discretionary-ligatures',
+		'historical-ligatures',
+		'no-historical-ligatures',
+		'contextual',
+		'no-contextual',
+		'small-caps',
+		'all-small-caps',
+		'petite-caps',
+		'all-petite-caps',
+		'unicase',
+		'titling-caps',
+		'lining-nums',
+		'oldstyle-nums',
+		'proportional-nums',
+		'tabular-nums',
+		'diagonal-fractions',
+		'stacked-fractions',
+		'ordinal',
+		'slashed-zero',
+		'jis78',
+		'jis83',
+		'jis90',
+		'jis04',
+		'simplified',
+		'traditional',
+		'full-width',
+		'proportional-width',
+		'ruby',
+	);
+
+	/**
 	 * Valid font-stretch values.
 	 *
 	 * @since 5.9.0
@@ -107,7 +150,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_font_weight_valid() &&
 			$this->is_ascent_override_valid() &&
 			$this->is_descent_override_valid() &&
-			$this->is_font_stretch_valid()
+			$this->is_font_stretch_valid() &&
+			$this->is_font_variant_valid()
 		);
 
 		$this->webfont = array();
@@ -419,6 +463,41 @@ class WP_Webfonts_Schema_Validator {
 
 		if ( ! $valid ) {
 			trigger_error( __( 'Webfont font-stretch value is invalid.' ) );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if font-variant is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_font_variant_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['fontVariant'] ) ) {
+			return true;
+		}
+
+		// Value can be multiple parts separated by a space.
+		// Split the value and check each part.
+		$parts = explode( ' ', $this->webfont['fontVariant'] );
+
+		$valid = true;
+		foreach ( $parts as $part ) {
+			// Check if part is one of the default values, or a percentage.
+			if ( ! in_array( $part, self::VALID_FONT_VARIANTS, true ) ) {
+				$valid = false;
+			}
+		}
+
+		if ( ! $valid ) {
+			trigger_error( __( 'Webfont font-variant value is invalid.' ) );
 
 			return false;
 		}
