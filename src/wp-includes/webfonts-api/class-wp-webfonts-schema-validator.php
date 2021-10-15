@@ -33,6 +33,20 @@ class WP_Webfonts_Schema_Validator {
 	);
 
 	/**
+	 * Valid font-display values.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @var string[]
+	 */
+	const VALID_FONT_DISPLAY = array(
+		'auto',
+		'block',
+		'fallback',
+		'swap',
+	);
+
+	/**
 	 * Webfont being validated.
 	 *
 	 * @var string[]
@@ -54,6 +68,7 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_provider_valid() &&
 			$this->is_font_family_valid() &&
 			$this->is_src_valid() &&
+			$this->is_font_display_valid() &&
 			$this->is_font_style_valid() &&
 			$this->is_font_weight_valid()
 		);
@@ -92,6 +107,26 @@ class WP_Webfonts_Schema_Validator {
 	private function is_font_family_valid() {
 		if ( empty( $this->webfont['fontFamily'] ) || ! is_string( $this->webfont['fontFamily'] ) ) {
 			trigger_error( __( 'Webfont font family must be a non-empty string.' ) );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if the given font-display is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_font_display_valid() {
+		if (
+			! empty( $this->webfont['fontDisplay'] ) &&
+			! in_array( $this->webfont['fontDisplay'], self::VALID_FONT_DISPLAY, true )
+		) {
+			trigger_error( __( 'Webfont font-display is not a valid value.' ) );
 
 			return false;
 		}
