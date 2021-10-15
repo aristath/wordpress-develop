@@ -62,6 +62,25 @@ class WP_Webfonts_Schema_Validator {
 	);
 
 	/**
+	 * Valid font-stretch values.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @var string[]
+	 */
+	const VALID_FONT_STRETCH = array(
+		'ultra-condensed',
+		'extra-condensed',
+		'condensed',
+		'semi-condensed',
+		'normal',
+		'semi-expanded',
+		'expanded',
+		'extra-expanded',
+		'ultra-expanded',
+	);
+
+	/**
 	 * Webfont being validated.
 	 *
 	 * @var string[]
@@ -87,7 +106,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_font_style_valid() &&
 			$this->is_font_weight_valid() &&
 			$this->is_ascent_override_valid() &&
-			$this->is_descent_override_valid()
+			$this->is_descent_override_valid() &&
+			$this->is_font_stretch_valid()
 		);
 
 		$this->webfont = array();
@@ -359,5 +379,53 @@ class WP_Webfonts_Schema_Validator {
 		trigger_error( __( 'Webfont descent-override must be "normal" or a percentage.' ) );
 
 		return false;
+	}
+
+	/**
+	 * Check if font-stretch is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_font_stretch_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['fontStretch'] ) ) {
+			return true;
+		}
+
+		// Value can be 1 or 2 parts separated by a space.
+		// Split the value and check each part.
+		$parts = explode( ' ', $this->webfont['fontStretch'] );
+
+		// Make sure there are 1 or 2 parts.
+		if ( count( $parts ) > 2 ) {
+			trigger_error( __( 'Webfont font-stretch must be a single value or two values separated by a space.' ) );
+
+			return false;
+		}
+
+		$valid = false;
+		foreach ( $parts as $part ) {
+			// Check if part is one of the default values.
+			if ( in_array( $this->webfont['fontStretch'], self::VALID_FONT_STRETCH, true ) ) {
+				$valid = true;
+				continue;
+			}
+
+			// Check if value is a percentage.
+			if ( preg_match( '/^(\d+)%$/', $this->webfont['fontStretch'], $matches ) ) {
+				$valid = true;
+			}
+		}
+
+		if ( ! $valid ) {
+			trigger_error( __( 'Webfont font-stretch value is invalid.' ) );
+
+			return false;
+		}
+
+		return true;
 	}
 }
