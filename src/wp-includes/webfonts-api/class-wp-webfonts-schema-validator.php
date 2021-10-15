@@ -151,7 +151,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_ascent_override_valid() &&
 			$this->is_descent_override_valid() &&
 			$this->is_font_stretch_valid() &&
-			$this->is_font_variant_valid()
+			$this->is_font_variant_valid() &&
+			$this->is_line_gap_override_valid()
 		);
 
 		$this->webfont = array();
@@ -503,5 +504,34 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check if line-gap-override is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_line_gap_override_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['lineGapOverride'] ) ) {
+			return true;
+		}
+
+		// Check if value is "normal".
+		if ( 'normal' === $this->webfont['lineGapOverride'] ) {
+			return true;
+		}
+
+		// Check if value is a percentage.
+		if ( preg_match( '/^(\d+)%$/', $this->webfont['lineGapOverride'], $matches ) ) {
+			return true;
+		}
+
+		trigger_error( __( 'Webfont line-gap-override must be "normal" or a percentage.' ) );
+
+		return false;
 	}
 }
