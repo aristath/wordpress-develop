@@ -230,38 +230,16 @@ class WP_Webfonts_Schema_Validator {
 			return false;
 		}
 
-		if ( ! $this->is_font_style_value_valid( $this->webfont['fontStyle'] ) ) {
-			trigger_error(
-				sprintf(
-					/* translators: 1: Slant angle, 2: Given font style. */
-					__( 'Webfont font style must be normal, italic, oblique, or oblique %1$s. Given: %2$s.' ),
-					'<angle>',
-					$this->webfont['fontStyle']
-				)
-			);
+		if (
+			in_array( $this->webfont['fontStyle'], self::VALID_FONT_STYLES, true ) ||
+			preg_match( '/^oblique\s+(\d+)%/', $this->webfont['fontStyle'], $matches )
+		) {
+			trigger_error( __( 'Webfont font style must be normal, italic, oblique, or oblique <angle>.' ) );
 
 			return false;
 		}
 
 		return true;
-	}
-
-	/**
-	 * Checks if the given font-style is valid.
-	 *
-	 * @since 5.9.0
-	 *
-	 * @param string $font_style Font style to validate.
-	 * @return bool True when font-style is valid.
-	 */
-	private function is_font_style_value_valid( $font_style ) {
-		if (
-			in_array( $font_style, self::VALID_FONT_STYLES, true ) ||
-			preg_match( '/^oblique\s+(\d+)%/', $font_style, $matches )
-		) {
-			return true;
-		}
-		return false;
 	}
 
 	/**
