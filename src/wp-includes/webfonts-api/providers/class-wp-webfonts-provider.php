@@ -117,9 +117,7 @@ abstract class WP_Webfonts_Provider {
 	}
 
 	/**
-	 * Validate the $params array.
-	 *
-	 * @todo Move to validator.Validation should happen during webfont collection, i.e.during the schema validation.
+	 * Properly format the $params array.
 	 *
 	 * @since 5.9.0
 	 *
@@ -127,7 +125,7 @@ abstract class WP_Webfonts_Provider {
 	 *
 	 * @return array
 	 */
-	public function get_validated_params( $params ) {
+	public function get_formatted_params( $params ) {
 
 		// Convert camelCase to kebab-case.
 		$kebab = array();
@@ -217,33 +215,6 @@ abstract class WP_Webfonts_Provider {
 			$params['src'] = $src_ordered;
 		}
 
-		// Only allow valid font-display values.
-		if (
-			! empty( $params['font-display'] ) &&
-			! in_array( $params['font-display'], array( 'auto', 'block', 'swap', 'fallback' ), true )
-		) {
-			$params['font-display'] = 'fallback';
-		}
-
-		// Only allow valid font-style values.
-		if (
-			! empty( $params['font-style'] ) &&
-			! in_array( $params['font-style'], array( 'normal', 'italic', 'oblique' ), true ) &&
-			! preg_match( '/^oblique\s+(\d+)%/', $params['font-style'], $matches )
-		) {
-			$params['font-style'] = 'normal';
-		}
-
-		// Only allow valid font-weight values.
-		if (
-			! empty( $params['font-weight'] ) &&
-			! in_array( $params['font-weight'], array( 'normal', 'bold', 'bolder', 'lighter', 'inherit' ), true ) &&
-			! preg_match( '/^(\d+)$/', $params['font-weight'], $matches ) &&
-			! preg_match( '/^(\d+)\s+(\d+)$/', $params['font-weight'], $matches )
-		) {
-			$params['font-weight'] = 'normal';
-		}
-
 		return $params;
 	}
 
@@ -255,7 +226,7 @@ abstract class WP_Webfonts_Provider {
 	 * @param string[][] $webfonts The webfont's parameters.
 	 */
 	public function set_webfonts( array $webfonts ) {
-		//$params = $this->get_validated_params( $params );
+		//$params = $this->get_formatted_params( $params );
 		$this->params = $webfonts;
 	}
 

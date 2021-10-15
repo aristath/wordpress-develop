@@ -70,7 +70,7 @@ class WP_Webfonts_Google_Provider extends WP_Webfonts_Provider {
 
 		// Validate all fonts.
 		foreach ( $fonts as $key => $font ) {
-			$fonts[ $key ] = $this->get_validated_params( $font );
+			$fonts[ $key ] = $this->get_formatted_params( $font );
 		}
 
 		// Group by font-display.

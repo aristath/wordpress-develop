@@ -29,8 +29,8 @@ class WP_Webfonts_Local_Provider extends WP_Webfonts_Provider {
 	 * @param array $params The webfont's parameters.
 	 * @return array
 	 */
-	public function get_validated_params( $params ) {
-		$params = parent::get_validated_params( $params );
+	public function get_formatted_params( $params ) {
+		$params = parent::get_formatted_params( $params );
 
 		// Wrap font-family in quotes if it contains spaces.
 		if ( false !== strpos( $params['font-family'], ' ' ) && false === strpos( $params['font-family'], '"' ) && false === strpos( $params['font-family'], "'" ) ) {
@@ -51,7 +51,7 @@ class WP_Webfonts_Local_Provider extends WP_Webfonts_Provider {
 		foreach ( $this->params as $font ) {
 
 			// Validate font params.
-			$font = $this->get_validated_params( $font );
+			$font = $this->get_formatted_params( $font );
 
 			if ( empty( $font['font-family'] ) ) {
 				continue;
