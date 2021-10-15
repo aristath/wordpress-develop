@@ -85,7 +85,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_src_valid() &&
 			$this->is_font_display_valid() &&
 			$this->is_font_style_valid() &&
-			$this->is_font_weight_valid()
+			$this->is_font_weight_valid() &&
+			$this->is_ascend_override_valid()
 		);
 
 		$this->webfont = array();
@@ -298,6 +299,35 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		trigger_error( __( 'Webfont font weight must be a non-empty string.' ) );
+		return false;
+	}
+
+	/**
+	 * Check if ascend-override is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_ascend_override_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['ascendOverride'] ) ) {
+			return true;
+		}
+
+		// Check if value is "normal".
+		if ( 'normal' === $this->webfont['ascendOverride'] ) {
+			return true;
+		}
+
+		// Check if value is a percentage.
+		if ( preg_match( '/^(\d+)%$/', $this->webfont['ascendOverride'], $matches ) ) {
+			return true;
+		}
+
+		trigger_error( __( 'Webfont ascend-override must be "normal" or a percentage.' ) );
+
 		return false;
 	}
 }
