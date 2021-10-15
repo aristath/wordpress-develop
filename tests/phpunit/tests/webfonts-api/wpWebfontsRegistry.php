@@ -47,6 +47,8 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				'webfont'          => array(),
 				'expected_message' => 'Webfont provider must be a non-empty string.',
 			),
+
+			// Provider checks.
 			'provider: not set'         => array(
 				'webfont'          => array(
 					'fontFamily' => 'Open Sans',
@@ -73,6 +75,8 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				),
 				'expected_message' => 'Webfont provider must be a non-empty string.',
 			),
+
+			// Font-family checks.
 			'font family: not set'      => array(
 				'webfont'          => array(
 					'provider'   => 'local',
@@ -99,6 +103,8 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				),
 				'expected_message' => 'Webfont font family must be a non-empty string.',
 			),
+
+			// Font-style checks.
 			'font style: empty string'  => array(
 				'webfont'          => array(
 					'provider'   => 'local',
@@ -126,6 +132,8 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				),
 				'expected_message' => 'Webfont font style must be normal, italic, oblique, or oblique <angle>. Given: invalid.',
 			),
+
+			// Font-weight checks.
 			'font weight: empty string' => array(
 				'webfont'          => array(
 					'provider'   => 'local',
@@ -144,8 +152,6 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				),
 				'expected_message' => 'Webfont font weight must be a non-empty string.',
 			),
-			// @todo uncomment once value validation is added.
-			/*
 			'font weight: invalid value' => array(
 				'webfont'          => array(
 					'provider'   => 'local',
@@ -155,7 +161,6 @@ class Tests_Webfonts_API_wpWebfontsRegistry extends WP_UnitTestCase {
 				),
 				'expected_message' => 'Webfont font weight must be a non-empty string.',
 			),
-			*/
 		);
 	}
 
