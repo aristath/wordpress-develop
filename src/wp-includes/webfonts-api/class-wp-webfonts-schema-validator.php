@@ -409,13 +409,13 @@ class WP_Webfonts_Schema_Validator {
 		$valid = false;
 		foreach ( $parts as $part ) {
 			// Check if part is one of the default values.
-			if ( in_array( $this->webfont['fontStretch'], self::VALID_FONT_STRETCH, true ) ) {
+			if ( in_array( $part, self::VALID_FONT_STRETCH, true ) ) {
 				$valid = true;
 				continue;
 			}
 
 			// Check if value is a percentage.
-			if ( preg_match( '/^(\d+)%$/', $this->webfont['fontStretch'], $matches ) ) {
+			if ( preg_match( '/^(\d+)%$/', $part, $matches ) ) {
 				$valid = true;
 			}
 		}
