@@ -389,7 +389,7 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		// Check if value is a percentage.
-		if ( preg_match( '/^(\d+)%$/', $this->webfont['ascentOverride'], $matches ) ) {
+		if ( $this->is_percentage( $this->webfont['ascentOverride'] ) ) {
 			return true;
 		}
 
@@ -418,7 +418,7 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		// Check if value is a percentage.
-		if ( preg_match( '/^(\d+)%$/', $this->webfont['descentOverride'], $matches ) ) {
+		if ( $this->is_percentage( $this->webfont['descentOverride'] ) ) {
 			return true;
 		}
 
@@ -454,10 +454,7 @@ class WP_Webfonts_Schema_Validator {
 
 		foreach ( $parts as $part ) {
 			// Check if part is one of the default values, or a percentage.
-			if (
-				! in_array( $part, self::VALID_FONT_STRETCH, true ) &&
-				! preg_match( '/^(\d+)%$/', $part, $matches )
-			) {
+			if ( ! in_array( $part, self::VALID_FONT_STRETCH, true ) && ! $this->is_percentage( $part ) ) {
 				trigger_error( __( 'Webfont font-stretch value is invalid.' ) );
 
 				return false;
@@ -516,7 +513,7 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		// Check if value is a percentage.
-		if ( preg_match( '/^(\d+)%$/', $this->webfont['lineGapOverride'], $matches ) ) {
+		if ( $this->is_percentage( $this->webfont['lineGapOverride'] ) ) {
 			return true;
 		}
 
@@ -556,5 +553,19 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check if value is percentage.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @param string $value Value to check.
+	 *
+	 * @return bool True if percentage. False if not.
+	 */
+	private function is_percentage( $value ) {
+		// Check if value is formatted like "10%", ".2%", or "10.2%".
+		return preg_match( '/^(\d+)%|^\.(\d+)%|^(\d+)\.(\d+)%$/', $value, $matches );
 	}
 }
