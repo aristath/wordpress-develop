@@ -86,7 +86,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_font_display_valid() &&
 			$this->is_font_style_valid() &&
 			$this->is_font_weight_valid() &&
-			$this->is_ascend_override_valid()
+			$this->is_ascent_override_valid() &&
+			$this->is_descent_override_valid()
 		);
 
 		$this->webfont = array();
@@ -303,30 +304,59 @@ class WP_Webfonts_Schema_Validator {
 	}
 
 	/**
-	 * Check if ascend-override is valid.
+	 * Check if ascent-override is valid.
 	 *
 	 * @since 5.9.0
 	 *
 	 * @return bool True if valid. False if invalid.
 	 */
-	private function is_ascend_override_valid() {
+	private function is_ascent_override_valid() {
 
 		// Value is optional.
-		if ( empty( $this->webfont['ascendOverride'] ) ) {
+		if ( empty( $this->webfont['ascentOverride'] ) ) {
 			return true;
 		}
 
 		// Check if value is "normal".
-		if ( 'normal' === $this->webfont['ascendOverride'] ) {
+		if ( 'normal' === $this->webfont['ascentOverride'] ) {
 			return true;
 		}
 
 		// Check if value is a percentage.
-		if ( preg_match( '/^(\d+)%$/', $this->webfont['ascendOverride'], $matches ) ) {
+		if ( preg_match( '/^(\d+)%$/', $this->webfont['ascentOverride'], $matches ) ) {
 			return true;
 		}
 
-		trigger_error( __( 'Webfont ascend-override must be "normal" or a percentage.' ) );
+		trigger_error( __( 'Webfont ascent-override must be "normal" or a percentage.' ) );
+
+		return false;
+	}
+
+	/**
+	 * Check if descent-override is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_descent_override_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['descentOverride'] ) ) {
+			return true;
+		}
+
+		// Check if value is "normal".
+		if ( 'normal' === $this->webfont['descentOverride'] ) {
+			return true;
+		}
+
+		// Check if value is a percentage.
+		if ( preg_match( '/^(\d+)%$/', $this->webfont['descentOverride'], $matches ) ) {
+			return true;
+		}
+
+		trigger_error( __( 'Webfont descent-override must be "normal" or a percentage.' ) );
 
 		return false;
 	}
