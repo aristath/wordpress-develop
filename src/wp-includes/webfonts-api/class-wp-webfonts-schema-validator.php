@@ -452,21 +452,16 @@ class WP_Webfonts_Schema_Validator {
 			return false;
 		}
 
-		$valid = true;
 		foreach ( $parts as $part ) {
 			// Check if part is one of the default values, or a percentage.
 			if (
 				! in_array( $part, self::VALID_FONT_STRETCH, true ) &&
 				! preg_match( '/^(\d+)%$/', $part, $matches )
 			) {
-				$valid = false;
+				trigger_error( __( 'Webfont font-stretch value is invalid.' ) );
+
+				return false;
 			}
-		}
-
-		if ( ! $valid ) {
-			trigger_error( __( 'Webfont font-stretch value is invalid.' ) );
-
-			return false;
 		}
 
 		return true;
@@ -489,19 +484,13 @@ class WP_Webfonts_Schema_Validator {
 		// Value can be multiple parts separated by a space.
 		// Split the value and check each part.
 		$parts = explode( ' ', $this->webfont['fontVariant'] );
-
-		$valid = true;
 		foreach ( $parts as $part ) {
 			// Check if part is one of the default values, or a percentage.
 			if ( ! in_array( $part, self::VALID_FONT_VARIANTS, true ) ) {
-				$valid = false;
+				trigger_error( __( 'Webfont font-variant value is invalid.' ) );
+
+				return false;
 			}
-		}
-
-		if ( ! $valid ) {
-			trigger_error( __( 'Webfont font-variant value is invalid.' ) );
-
-			return false;
 		}
 
 		return true;
@@ -553,8 +542,6 @@ class WP_Webfonts_Schema_Validator {
 		// Value can consist of multiple ranges separated by a comma.
 		// Split the value and check each range.
 		$ranges = explode( ',', $this->webfont['unicodeRange'] );
-
-		$valid = true;
 		foreach ( $parts as $part ) {
 			// Trim the part to remove any spaces.
 			$part = trim( $part );
@@ -562,14 +549,12 @@ class WP_Webfonts_Schema_Validator {
 				! preg_match( '/^U\+([0-9A-F])+$/', $part, $matches ) && // Check if value is a single codepoint.
 				! preg_match( '/^U\+([0-9A-F])+-([0-9A-F])+$/', $part, $matches ) // Check if range.
 			) {
-				$valid = false;
+				trigger_error( __( 'Webfont unicode-range value is invalid.' ) );
+
+				return false;
 			}
 		}
 
-		if ( ! $valid ) {
-			trigger_error( __( 'Webfont unicode-range value is invalid.' ) );
-		}
-
-		return false;
+		return true;
 	}
 }
