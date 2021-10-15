@@ -47,6 +47,21 @@ class WP_Webfonts_Schema_Validator {
 	);
 
 	/**
+	 * Valid font-weight values.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @var string[]
+	 */
+	const VALID_FONT_WEIGHTS = array(
+		'normal',
+		'bold',
+		'bolder',
+		'lighter',
+		'inherit',
+	);
+
+	/**
 	 * Webfont being validated.
 	 *
 	 * @var string[]
@@ -259,13 +274,30 @@ class WP_Webfonts_Schema_Validator {
 	 * @return bool True if valid. False if invalid.
 	 */
 	private function is_font_weight_valid() {
-		// @todo validate the value.
-		if ( empty( $this->webfont['fontWeight'] ) || ! is_string( $this->webfont['fontWeight'] ) ) {
+
+		// Require a value.
+		if ( empty( $this->webfont['fontWeight'] ) ) {
 			trigger_error( __( 'Webfont font weight must be a non-empty string.' ) );
 
 			return false;
 		}
 
-		return true;
+		// Check if it's one of the default values.
+		if ( in_array( $this->webfont['fontWeight'], self::VALID_FONT_WEIGHTS, true ) ) {
+			return true;
+		}
+
+		// Check if value is a single font-weight, formatted as a number.
+		if ( preg_match( '/^(\d+)$/', $this->webfont['fontWeight'], $matches ) ) {
+			return true;
+		}
+
+		// Check if value is a range of font-weights, formatted as a number range.
+		if ( preg_match( '/^(\d+)\s+(\d+)$/', $this->webfont['fontWeight'], $matches ) ) {
+			return true;
+		}
+
+		trigger_error( __( 'Webfont font weight must be a non-empty string.' ) );
+		return false;
 	}
 }
