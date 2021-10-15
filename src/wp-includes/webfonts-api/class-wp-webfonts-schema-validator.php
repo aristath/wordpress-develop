@@ -152,7 +152,8 @@ class WP_Webfonts_Schema_Validator {
 			$this->is_descent_override_valid() &&
 			$this->is_font_stretch_valid() &&
 			$this->is_font_variant_valid() &&
-			$this->is_line_gap_override_valid()
+			$this->is_line_gap_override_valid() &&
+			$this->is_unicode_range_valid()
 		);
 
 		$this->webfont = array();
@@ -531,6 +532,43 @@ class WP_Webfonts_Schema_Validator {
 		}
 
 		trigger_error( __( 'Webfont line-gap-override must be "normal" or a percentage.' ) );
+
+		return false;
+	}
+
+	/**
+	 * Check if unicode-range is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_unicode_range_valid() {
+
+		// Value is optional.
+		if ( empty( $this->webfont['unicodeRange'] ) ) {
+			return true;
+		}
+
+		// Value can consist of multiple ranges separated by a comma.
+		// Split the value and check each range.
+		$ranges = explode( ',', $this->webfont['unicodeRange'] );
+
+		$valid = true;
+		foreach ( $parts as $part ) {
+			// Trim the part to remove any spaces.
+			$part = trim( $part );
+			if (
+				! preg_match( '/^U\+([0-9A-F])+$/', $part, $matches ) && // Check if value is a single codepoint.
+				! preg_match( '/^U\+([0-9A-F])+-([0-9A-F])+$/', $part, $matches ) // Check if range.
+			) {
+				$valid = false;
+			}
+		}
+
+		if ( ! $valid ) {
+			trigger_error( __( 'Webfont unicode-range value is invalid.' ) );
+		}
 
 		return false;
 	}
