@@ -21,7 +21,7 @@ class WP_Webfonts_Schema_Validator {
 	 *
 	 * @var string[]
 	 */
-	private $valid_font_style = array(
+	const VALID_FONT_STYLES = array(
 		'normal',
 		'italic',
 		'oblique',
@@ -136,12 +136,12 @@ class WP_Webfonts_Schema_Validator {
 	 * @return bool True when font-style is valid.
 	 */
 	private function is_font_style_value_valid( $font_style ) {
-		if ( in_array( $font_style, $this->valid_font_style, true ) ) {
+		if (
+			in_array( $font_style, self::VALID_FONT_STYLES, true ) ||
+			preg_match( '/^oblique\s+(\d+)%/', $font_style, $matches )
+		) {
 			return true;
 		}
-
-		// @todo Check for oblique <angle>.
-
 		return false;
 	}
 
