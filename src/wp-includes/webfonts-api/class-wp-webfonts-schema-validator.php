@@ -53,6 +53,7 @@ class WP_Webfonts_Schema_Validator {
 		$is_valid = (
 			$this->is_provider_valid() &&
 			$this->is_font_family_valid() &&
+			$this->is_src_valid() &&
 			$this->is_font_style_valid() &&
 			$this->is_font_weight_valid()
 		);
@@ -142,6 +143,76 @@ class WP_Webfonts_Schema_Validator {
 		) {
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * Checks if the "src" value is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool True if valid. False if invalid.
+	 */
+	private function is_src_valid() {
+		if ( empty( $this->webfont['src'] ) ) {
+			return true;
+		}
+
+		if ( ! is_string( $this->webfont['src'] ) && ! is_array( $this->webfont['src'] ) ) {
+			trigger_error( __( 'Webfont src must be a non-empty string, or an array of strings.' ) );
+
+			return false;
+		}
+
+		$this->webfont['src'] = (array) $this->webfont['src'];
+		foreach ( $this->webfont['src'] as $src ) {
+			if ( ! is_string( $src ) ) {
+				trigger_error( __( 'Webfont src must be a non-empty string, or an array of strings.' ) );
+
+				return false;
+			}
+
+			if ( ! $this->is_src_value_valid( $src ) ) {
+				trigger_error( __( 'Webfont src must be a valid URL, or a data URI.' ) );
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if the given src value is valid.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @param string $src Source to validate.
+	 *
+	 * @return bool True when valid. False when invalid.
+	 */
+	private function is_src_value_valid( $src ) {
+
+		// Validate data URLs.
+		if ( preg_match( '/^data:.+;base64/', $src ) ) {
+			return true;
+		}
+
+		// Validate URLs.
+		if ( filter_var( $src, FILTER_VALIDATE_URL ) ) {
+			return true;
+		}
+
+		// Check if it's a URL starting with "//" (omitted protocol)
+		if ( 0 === strpos( $src, '//' ) ) {
+			return true;
+		}
+
+		// Check if it's a relative URL.
+		if ( 0 === strpos( $src, 'file:./' ) ) {
+			return true;
+		}
+
 		return false;
 	}
 
