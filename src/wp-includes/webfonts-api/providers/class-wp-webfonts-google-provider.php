@@ -126,8 +126,12 @@ class WP_Webfonts_Google_Provider extends WP_Webfonts_Provider {
 		$css  = '';
 		$urls = $this->build_collection_api_urls( $this->webfonts );
 
+		$downloader = new WP_Webfonts_Downloader();
+
 		foreach ( $urls as $url ) {
-			$css .= $this->get_cached_remote_styles( 'google_fonts_' . md5( $url ), $url );
+			$styles = $this->get_cached_remote_styles( 'google_fonts_' . md5( $url ), $url );
+			$styles = $downloader->get_css( $styles );
+			$css   .= $styles;
 		}
 
 		return $css;
