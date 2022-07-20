@@ -225,7 +225,8 @@ class WP_Block_Parser {
 	 * @return WP_Block_Parser_Block[]
 	 */
 	function parse( $document ) {
-		$this->document    = $document;
+		// Ensure $this->document is a string to avoid errors in PHP 8.1+.
+		$this->document    = (string) $document;
 		$this->offset      = 0;
 		$this->output      = array();
 		$this->stack       = array();
