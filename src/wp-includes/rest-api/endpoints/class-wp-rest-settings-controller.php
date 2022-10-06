@@ -98,7 +98,7 @@ class WP_REST_Settings_Controller extends WP_REST_Controller {
 			 */
 			$response[ $name ] = apply_filters( 'rest_pre_get_setting', null, $name, $args );
 
-			if ( is_null( $response[ $name ] ) ) {
+			if ( null === $response[ $name ] ) {
 				// Default to a null value as "null" in the response means "not set".
 				$response[ $name ] = get_option( $args['option_name'], $args['schema']['default'] );
 			}
@@ -178,7 +178,7 @@ class WP_REST_Settings_Controller extends WP_REST_Controller {
 			 * deleting the option from the database, and relying on the
 			 * default value.
 			 */
-			if ( is_null( $request[ $name ] ) ) {
+			if ( null === $request[ $name ] ) {
 				/*
 				 * A null value is returned in the response for any option
 				 * that has a non-scalar value.
@@ -314,7 +314,7 @@ class WP_REST_Settings_Controller extends WP_REST_Controller {
 	 * @return mixed|WP_Error
 	 */
 	public function sanitize_callback( $value, $request, $param ) {
-		if ( is_null( $value ) ) {
+		if ( null === $value ) {
 			return $value;
 		}
 

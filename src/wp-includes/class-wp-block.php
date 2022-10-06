@@ -121,7 +121,7 @@ class WP_Block {
 		$this->parsed_block = $block;
 		$this->name         = $block['blockName'];
 
-		if ( is_null( $registry ) ) {
+		if ( null === $registry ) {
 			$registry = WP_Block_Type_Registry::get_instance();
 		}
 
@@ -181,7 +181,7 @@ class WP_Block {
 				$this->parsed_block['attrs'] :
 				array();
 
-			if ( ! is_null( $this->block_type ) ) {
+			if ( null !== $this->block_type ) {
 				$this->attributes = $this->block_type->prepare_attributes_for_render( $this->attributes );
 			}
 
@@ -228,7 +228,7 @@ class WP_Block {
 					/** This filter is documented in wp-includes/blocks.php */
 					$pre_render = apply_filters( 'pre_render_block', null, $inner_block->parsed_block, $parent_block );
 
-					if ( ! is_null( $pre_render ) ) {
+					if ( null !== $pre_render ) {
 						$block_content .= $pre_render;
 					} else {
 						$source_block = $inner_block->parsed_block;

@@ -206,7 +206,7 @@ if ( ! class_exists( 'Translations', false ) ) :
 		 * @param int $count
 		 */
 		public function gettext_select_plural_form( $count ) {
-			if ( ! isset( $this->_gettext_select_plural_form ) || is_null( $this->_gettext_select_plural_form ) ) {
+			if ( ! isset( $this->_gettext_select_plural_form ) || null === $this->_gettext_select_plural_form ) {
 				list( $nplurals, $expression )     = $this->nplurals_and_expression_from_header( $this->get_header( 'Plural-Forms' ) );
 				$this->_nplurals                   = $nplurals;
 				$this->_gettext_select_plural_form = $this->make_plural_form_function( $nplurals, $expression );

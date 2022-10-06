@@ -535,7 +535,7 @@ class WP_List_Table {
 	 *                      This is designated as optional for backward compatibility.
 	 */
 	protected function bulk_actions( $which = '' ) {
-		if ( is_null( $this->_actions ) ) {
+		if ( null === $this->_actions ) {
 			$this->_actions = $this->get_bulk_actions();
 
 			/**

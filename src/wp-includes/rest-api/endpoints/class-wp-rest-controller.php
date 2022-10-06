@@ -565,7 +565,7 @@ abstract class WP_REST_Controller {
 		foreach ( $additional_fields as $field_name => $field_options ) {
 			// For back-compat, include any field with an empty schema
 			// because it won't be present in $this->get_item_schema().
-			if ( is_null( $field_options['schema'] ) ) {
+			if ( null === $field_options['schema'] ) {
 				$properties[ $field_name ] = $field_options;
 			}
 		}

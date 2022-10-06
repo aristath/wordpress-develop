@@ -372,7 +372,7 @@ class Tests_Bookmark_GetBookmark extends WP_UnitTestCase {
 		$args     = array_merge( $defaults, $args );
 
 		// When given a bookmark, use it.
-		if ( ! is_null( $bookmark ) ) {
+		if ( null !== $bookmark ) {
 			$args['bookmark'] = $bookmark;
 		}
 
@@ -391,7 +391,7 @@ class Tests_Bookmark_GetBookmark extends WP_UnitTestCase {
 	 * @return array|stdClass bookmark's data.
 	 */
 	private function maybe_format_expected_data( array $args, $bookmark = null ) {
-		if ( is_null( $bookmark ) ) {
+		if ( null === $bookmark ) {
 			$bookmark = self::$bookmark;
 		}
 

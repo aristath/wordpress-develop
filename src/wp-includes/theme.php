@@ -2669,7 +2669,7 @@ function add_theme_support( $feature, ...$args ) {
 			$args[0]  = wp_parse_args( array_intersect_key( $args[0], $defaults ), $defaults );
 
 			// Allow full flexibility if no size is specified.
-			if ( is_null( $args[0]['width'] ) && is_null( $args[0]['height'] ) ) {
+			if ( null === $args[0]['width'] && null === $args[0]['height'] ) {
 				$args[0]['flex-width']  = true;
 				$args[0]['flex-height'] = true;
 			}

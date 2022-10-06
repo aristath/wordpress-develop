@@ -556,7 +556,7 @@ class WP_Customize_Nav_Menu_Setting extends WP_Customize_Setting {
 				}
 
 				$post_value = $setting->post_value( null );
-				if ( ! is_null( $post_value ) && (int) $post_value === $this->previous_term_id ) {
+				if ( null !== $post_value && (int) $post_value === $this->previous_term_id ) {
 					$this->manager->set_post_value( $setting->id, $this->term_id );
 					$setting->save();
 				}

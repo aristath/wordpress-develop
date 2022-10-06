@@ -2208,7 +2208,7 @@ function upgrade_560() {
 		 * Its presence may conflict with `WP_Post::__get()`.
 		 */
 		$post_category_exists = $wpdb->get_var( "SHOW COLUMNS FROM $wpdb->posts LIKE 'post_category'" );
-		if ( ! is_null( $post_category_exists ) ) {
+		if ( null !== $post_category_exists ) {
 			$wpdb->query( "ALTER TABLE $wpdb->posts DROP COLUMN `post_category`" );
 		}
 

@@ -99,9 +99,9 @@ class Tests_Formatting_LinksAddTarget extends WP_UnitTestCase {
 	 * @dataProvider get_input_output
 	 */
 	public function test_normalize_whitespace( $content, $target, $tags, $exp_str ) {
-		if ( true === is_null( $target ) ) {
+		if ( null === $target ) {
 			$this->assertSame( $exp_str, links_add_target( $content ) );
-		} elseif ( true === is_null( $tags ) ) {
+		} elseif ( null === $tags ) {
 			$this->assertSame( $exp_str, links_add_target( $content, $target ) );
 		} else {
 			$this->assertSame( $exp_str, links_add_target( $content, $target, $tags ) );

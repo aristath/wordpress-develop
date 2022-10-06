@@ -33,7 +33,7 @@ class Tests_Widgets_wpWidgetRss extends WP_UnitTestCase {
 			'url'   => $url,
 		);
 
-		if ( is_null( $url ) ) {
+		if ( null === $url ) {
 			unset( $instance['ur'] );
 		}
 
@@ -79,7 +79,7 @@ class Tests_Widgets_wpWidgetRss extends WP_UnitTestCase {
 			'url'   => $url,
 		);
 
-		if ( is_null( $url ) ) {
+		if ( null === $url ) {
 			unset( $instance['ur'] );
 		}
 

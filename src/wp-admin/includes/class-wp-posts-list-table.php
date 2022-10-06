@@ -1064,7 +1064,7 @@ class WP_Posts_List_Table extends WP_List_Table {
 				while ( $find_main_page > 0 ) {
 					$parent = get_post( $find_main_page );
 
-					if ( is_null( $parent ) ) {
+					if ( null === $parent ) {
 						break;
 					}
 

@@ -112,7 +112,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 */
 	#[ReturnTypeWillChange]
 	public function offsetSet( $index, $value ) {
-		if ( is_null( $index ) ) {
+		if ( null === $index ) {
 			$this->blocks[] = $value;
 		} else {
 			$this->blocks[ $index ] = $value;

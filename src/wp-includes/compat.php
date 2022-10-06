@@ -92,13 +92,13 @@ function _mb_substr( $str, $start, $length = null, $encoding = null ) {
 	 * charset just use built-in substr().
 	 */
 	if ( ! in_array( $encoding, array( 'utf8', 'utf-8', 'UTF8', 'UTF-8' ), true ) ) {
-		return is_null( $length ) ? substr( $str, $start ) : substr( $str, $start, $length );
+		return null === $length ? substr( $str, $start ) : substr( $str, $start, $length );
 	}
 
 	if ( _wp_can_use_pcre_u() ) {
 		// Use the regex unicode support to separate the UTF-8 characters into an array.
 		preg_match_all( '/./us', $str, $match );
-		$chars = is_null( $length ) ? array_slice( $match[0], $start ) : array_slice( $match[0], $start, $length );
+		$chars = null === $length ? array_slice( $match[0], $start ) : array_slice( $match[0], $start, $length );
 		return implode( '', $chars );
 	}
 

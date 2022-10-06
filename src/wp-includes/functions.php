@@ -4342,7 +4342,7 @@ function _wp_json_sanity_check( $data, $depth ) {
  */
 function _wp_json_convert_string( $string ) {
 	static $use_mb = null;
-	if ( is_null( $use_mb ) ) {
+	if ( null === $use_mb ) {
 		$use_mb = function_exists( 'mb_convert_encoding' );
 	}
 
@@ -4911,7 +4911,7 @@ function _wp_array_get( $array, $path, $default = null ) {
 	foreach ( $path as $path_element ) {
 		if (
 			! is_array( $array ) ||
-			( ! is_string( $path_element ) && ! is_integer( $path_element ) && ! is_null( $path_element ) ) ||
+			( ! is_string( $path_element ) && ! is_integer( $path_element ) && null !== $path_element ) ||
 			! array_key_exists( $path_element, $array )
 		) {
 			return $default;
@@ -4971,7 +4971,7 @@ function _wp_array_set( &$array, $path, $value = null ) {
 	foreach ( $path as $path_element ) {
 		if (
 			! is_string( $path_element ) && ! is_integer( $path_element ) &&
-			! is_null( $path_element )
+			null !== $path_element
 		) {
 			return;
 		}
@@ -6010,7 +6010,7 @@ function validate_file( $file, $allowed_files = array() ) {
 function force_ssl_admin( $force = null ) {
 	static $forced = false;
 
-	if ( ! is_null( $force ) ) {
+	if ( null !== $force ) {
 		$old_forced = $forced;
 		$forced     = $force;
 		return $old_forced;
@@ -6791,7 +6791,7 @@ function _wp_mysql_week( $column ) {
  * @return array IDs of all members of loop.
  */
 function wp_find_hierarchy_loop( $callback, $start, $start_parent, $callback_args = array() ) {
-	$override = is_null( $start_parent ) ? array() : array( $start => $start_parent );
+	$override = null === $start_parent ? array() : array( $start => $start_parent );
 
 	$arbitrary_loop_member = wp_find_hierarchy_loop_tortoise_hare( $callback, $start, $override, $callback_args );
 	if ( ! $arbitrary_loop_member ) {
@@ -6926,7 +6926,7 @@ function wp_debug_backtrace_summary( $ignore_class = null, $skip_frames = 0, $pr
 
 	$trace       = debug_backtrace( false );
 	$caller      = array();
-	$check_class = ! is_null( $ignore_class );
+	$check_class = null !== $ignore_class;
 	$skip_frames++; // Skip this function.
 
 	if ( ! isset( $truncate_paths ) ) {
@@ -7245,7 +7245,7 @@ function mbstring_binary_safe_encoding( $reset = false ) {
 	static $encodings  = array();
 	static $overloaded = null;
 
-	if ( is_null( $overloaded ) ) {
+	if ( null === $overloaded ) {
 		if ( function_exists( 'mb_internal_encoding' )
 			&& ( (int) ini_get( 'mbstring.func_overload' ) & 2 ) // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecated
 		) {

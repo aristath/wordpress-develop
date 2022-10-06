@@ -719,7 +719,7 @@ function delete_option( $option ) {
 
 	// Get the ID, if no ID then return.
 	$row = $wpdb->get_row( $wpdb->prepare( "SELECT autoload FROM $wpdb->options WHERE option_name = %s", $option ) );
-	if ( is_null( $row ) ) {
+	if ( null === $row ) {
 		return false;
 	}
 

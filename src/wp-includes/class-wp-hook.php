@@ -474,7 +474,7 @@ final class WP_Hook implements Iterator, ArrayAccess {
 	 */
 	#[ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
-		if ( is_null( $offset ) ) {
+		if ( null === $offset ) {
 			$this->callbacks[] = $value;
 		} else {
 			$this->callbacks[ $offset ] = $value;

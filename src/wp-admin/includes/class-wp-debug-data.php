@@ -1028,7 +1028,7 @@ class WP_Debug_Data {
 
 				$auto_update_forced = wp_is_auto_update_forced_for_item( 'plugin', null, (object) $item );
 
-				if ( ! is_null( $auto_update_forced ) ) {
+				if ( null !== $auto_update_forced ) {
 					$enabled = $auto_update_forced;
 				} else {
 					$enabled = in_array( $plugin_path, $auto_updates, true );
@@ -1170,7 +1170,7 @@ class WP_Debug_Data {
 
 			$auto_update_forced = wp_is_auto_update_forced_for_item( 'theme', null, (object) $item );
 
-			if ( ! is_null( $auto_update_forced ) ) {
+			if ( null !== $auto_update_forced ) {
 				$enabled = $auto_update_forced;
 			} else {
 				$enabled = in_array( $active_theme->stylesheet, $auto_updates, true );
@@ -1256,7 +1256,7 @@ class WP_Debug_Data {
 
 				$auto_update_forced = wp_is_auto_update_forced_for_item( 'theme', null, (object) $item );
 
-				if ( ! is_null( $auto_update_forced ) ) {
+				if ( null !== $auto_update_forced ) {
 					$enabled = $auto_update_forced;
 				} else {
 					$enabled = in_array( $parent_theme->stylesheet, $auto_updates, true );
@@ -1344,7 +1344,7 @@ class WP_Debug_Data {
 
 				$auto_update_forced = wp_is_auto_update_forced_for_item( 'theme', null, (object) $item );
 
-				if ( ! is_null( $auto_update_forced ) ) {
+				if ( null !== $auto_update_forced ) {
 					$enabled = $auto_update_forced;
 				} else {
 					$enabled = in_array( $theme_slug, $auto_updates, true );

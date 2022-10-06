@@ -197,7 +197,7 @@ class Tests_Link_GetAdjacentPost extends WP_UnitTestCase {
 
 		$found = get_adjacent_post( false, array( $t ), true, 'wptests_tax' );
 
-		if ( ! is_null( $_post ) ) {
+		if ( null !== $_post ) {
 			$GLOBALS['post'] = $_post;
 		} else {
 			unset( $GLOBALS['post'] );
@@ -234,7 +234,7 @@ class Tests_Link_GetAdjacentPost extends WP_UnitTestCase {
 
 		$found = get_adjacent_post( false, array( $t ), true, 'wptests_tax' );
 
-		if ( ! is_null( $_post ) ) {
+		if ( null !== $_post ) {
 			$GLOBALS['post'] = $_post;
 		} else {
 			unset( $GLOBALS['post'] );

@@ -160,7 +160,7 @@ class WP_Http_Curl {
 				break;
 			default:
 				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, $parsed_args['method'] );
-				if ( ! is_null( $parsed_args['body'] ) ) {
+				if ( null !== $parsed_args['body'] ) {
 					curl_setopt( $handle, CURLOPT_POSTFIELDS, $parsed_args['body'] );
 				}
 				break;

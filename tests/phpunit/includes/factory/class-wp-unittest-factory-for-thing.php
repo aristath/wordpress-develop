@@ -49,7 +49,7 @@ abstract class WP_UnitTest_Factory_For_Thing {
 	 * @return mixed The result. Can be anything.
 	 */
 	public function create( $args = array(), $generation_definitions = null ) {
-		if ( is_null( $generation_definitions ) ) {
+		if ( null === $generation_definitions ) {
 			$generation_definitions = $this->default_generation_definitions;
 		}
 
@@ -125,7 +125,7 @@ abstract class WP_UnitTest_Factory_For_Thing {
 	 */
 	public function generate_args( $args = array(), $generation_definitions = null, &$callbacks = null ) {
 		$callbacks = array();
-		if ( is_null( $generation_definitions ) ) {
+		if ( null === $generation_definitions ) {
 			$generation_definitions = $this->default_generation_definitions;
 		}
 

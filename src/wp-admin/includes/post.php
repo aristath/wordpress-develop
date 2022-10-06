@@ -1409,7 +1409,7 @@ function get_sample_permalink( $post, $title = null, $name = null ) {
 
 	// If the user wants to set a new name -- override the current one.
 	// Note: if empty name is supplied -- use the title instead, see #6072.
-	if ( ! is_null( $name ) ) {
+	if ( null !== $name ) {
 		$post->post_name = sanitize_title( $name ? $name : $title, $post->ID );
 	}
 

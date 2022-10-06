@@ -156,7 +156,7 @@ abstract class WP_REST_Meta_Fields {
 			 *
 			 * Non-single meta can also be removed by passing an empty array.
 			 */
-			if ( is_null( $value ) || ( array() === $value && ! $args['single'] ) ) {
+			if ( null === $value || ( array() === $value && ! $args['single'] ) ) {
 				$args = $this->get_registered_fields()[ $meta_key ];
 
 				if ( $args['single'] ) {

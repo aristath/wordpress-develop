@@ -311,7 +311,7 @@ final class WP_Privacy_Policy_Content {
 	 * @param WP_Post|null $post The currently edited post. Default null.
 	 */
 	public static function notice( $post = null ) {
-		if ( is_null( $post ) ) {
+		if ( null === $post ) {
 			global $post;
 		} else {
 			$post = get_post( $post );

@@ -261,7 +261,7 @@ class WP_Dependencies {
 
 		// If the item was enqueued before the details were registered, enqueue it now.
 		if ( array_key_exists( $handle, $this->queued_before_register ) ) {
-			if ( ! is_null( $this->queued_before_register[ $handle ] ) ) {
+			if ( null !== $this->queued_before_register[ $handle ] ) {
 				$this->enqueue( $handle . '?' . $this->queued_before_register[ $handle ] );
 			} else {
 				$this->enqueue( $handle );

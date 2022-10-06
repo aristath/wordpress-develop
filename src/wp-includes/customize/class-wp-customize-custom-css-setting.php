@@ -105,7 +105,7 @@ final class WP_Customize_Custom_CSS_Setting extends WP_Customize_Setting {
 	public function filter_previewed_wp_get_custom_css( $css, $stylesheet ) {
 		if ( $stylesheet === $this->stylesheet ) {
 			$customized_value = $this->post_value( null );
-			if ( ! is_null( $customized_value ) ) {
+			if ( null !== $customized_value ) {
 				$css = $customized_value;
 			}
 		}

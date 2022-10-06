@@ -1686,7 +1686,7 @@ function rest_validate_array_contains_unique_items( $array ) {
  * @return mixed The stabilized value.
  */
 function rest_stabilize_value( $value ) {
-	if ( is_scalar( $value ) || is_null( $value ) ) {
+	if ( is_scalar( $value ) || null === $value ) {
 		return $value;
 	}
 

@@ -4188,7 +4188,7 @@ function wp_ajax_install_theme() {
 	} elseif ( $skin->get_errors()->has_errors() ) {
 		$status['errorMessage'] = $skin->get_error_messages();
 		wp_send_json_error( $status );
-	} elseif ( is_null( $result ) ) {
+	} elseif ( null !== $result ) {
 		global $wp_filesystem;
 
 		$status['errorCode']    = 'unable_to_connect_to_filesystem';
@@ -4485,7 +4485,7 @@ function wp_ajax_install_plugin() {
 	} elseif ( $skin->get_errors()->has_errors() ) {
 		$status['errorMessage'] = $skin->get_error_messages();
 		wp_send_json_error( $status );
-	} elseif ( is_null( $result ) ) {
+	} elseif ( null !== $result ) {
 		global $wp_filesystem;
 
 		$status['errorCode']    = 'unable_to_connect_to_filesystem';

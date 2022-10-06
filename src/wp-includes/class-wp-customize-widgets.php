@@ -201,7 +201,7 @@ final class WP_Customize_Widgets {
 		$widget_setting_ids   = array();
 		$incoming_setting_ids = array_keys( $this->manager->unsanitized_post_values() );
 		foreach ( $incoming_setting_ids as $setting_id ) {
-			if ( ! is_null( $this->get_setting_type( $setting_id ) ) ) {
+			if ( null !== $this->get_setting_type( $setting_id ) ) {
 				$widget_setting_ids[] = $setting_id;
 			}
 		}
@@ -573,7 +573,7 @@ final class WP_Customize_Widgets {
 		$parsed_widget_id = $this->parse_widget_id( $widget_id );
 		$setting_id       = sprintf( 'widget_%s', $parsed_widget_id['id_base'] );
 
-		if ( ! is_null( $parsed_widget_id['number'] ) ) {
+		if ( null !== $parsed_widget_id['number'] ) {
 			$setting_id .= sprintf( '[%d]', $parsed_widget_id['number'] );
 		}
 		return $setting_id;
@@ -1567,12 +1567,12 @@ final class WP_Customize_Widgets {
 			}
 
 			$instance = $this->sanitize_widget_instance( $sanitized_widget_setting, $parsed_id['id_base'] );
-			if ( is_null( $instance ) ) {
+			if ( null === $instance ) {
 				$this->stop_capturing_option_updates();
 				return new WP_Error( 'widget_setting_unsanitized' );
 			}
 
-			if ( ! is_null( $parsed_id['number'] ) ) {
+			if ( null !== $parsed_id['number'] ) {
 				$value                         = array();
 				$value[ $parsed_id['number'] ] = $instance;
 				$key                           = 'widget-' . $parsed_id['id_base'];

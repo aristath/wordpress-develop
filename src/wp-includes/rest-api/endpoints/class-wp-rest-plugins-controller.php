@@ -332,7 +332,7 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 			return $error;
 		}
 
-		if ( is_null( $result ) ) {
+		if ( null === $result ) {
 			// Pass through the error from WP_Filesystem if one was raised.
 			if ( $wp_filesystem instanceof WP_Filesystem_Base
 				&& is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors()

@@ -233,7 +233,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 
 			$auto_update_forced = wp_is_auto_update_forced_for_item( 'plugin', null, $filter_payload );
 
-			if ( ! is_null( $auto_update_forced ) ) {
+			if ( null !== $auto_update_forced ) {
 				$plugin_data['auto-update-forced'] = $auto_update_forced;
 			}
 

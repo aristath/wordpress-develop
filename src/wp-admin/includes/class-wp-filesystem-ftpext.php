@@ -589,7 +589,7 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 	public function parselisting( $line ) {
 		static $is_windows = null;
 
-		if ( is_null( $is_windows ) ) {
+		if ( null === $is_windows ) {
 			$is_windows = stripos( ftp_systype( $this->link ), 'win' ) !== false;
 		}
 

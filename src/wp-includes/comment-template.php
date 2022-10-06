@@ -735,7 +735,7 @@ function get_comment_link( $comment = null, $args = array() ) {
 	$link = get_permalink( $comment->comment_post_ID );
 
 	// The 'cpage' param takes precedence.
-	if ( ! is_null( $args['cpage'] ) ) {
+	if ( null !== $args['cpage'] ) {
 		$cpage = $args['cpage'];
 
 		// No 'cpage' is provided, so we calculate one.

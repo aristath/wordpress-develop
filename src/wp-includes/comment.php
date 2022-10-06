@@ -2722,7 +2722,7 @@ function wp_update_comment_count_now( $post_id ) {
 	 */
 	$new = apply_filters( 'pre_wp_update_comment_count_now', null, $old, $post_id );
 
-	if ( is_null( $new ) ) {
+	if ( null === $new ) {
 		$new = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved = '1'", $post_id ) );
 	} else {
 		$new = (int) $new;

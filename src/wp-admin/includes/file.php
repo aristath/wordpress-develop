@@ -2202,7 +2202,7 @@ function request_filesystem_credentials( $form_post, $type = '', $error = false,
 		return true;
 	}
 
-	if ( is_null( $extra_fields ) ) {
+	if ( null === $extra_fields ) {
 		$extra_fields = array( 'version', 'locale' );
 	}
 

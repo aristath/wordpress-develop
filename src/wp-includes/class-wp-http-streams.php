@@ -244,7 +244,7 @@ class WP_Http_Streams {
 
 		$headers .= "\r\n";
 
-		if ( ! is_null( $parsed_args['body'] ) ) {
+		if ( null !== $parsed_args['body'] ) {
 			$headers .= $parsed_args['body'];
 		}
 

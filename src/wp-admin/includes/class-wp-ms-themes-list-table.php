@@ -182,7 +182,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 
 			$auto_update_forced = wp_is_auto_update_forced_for_item( 'theme', null, $filter_payload );
 
-			if ( ! is_null( $auto_update_forced ) ) {
+			if ( null !== $auto_update_forced ) {
 				$theme->auto_update_forced = $auto_update_forced;
 			}
 
@@ -264,7 +264,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 	 */
 	public function _search_callback( $theme ) {
 		static $term = null;
-		if ( is_null( $term ) ) {
+		if ( null === $term ) {
 			$term = wp_unslash( $_REQUEST['s'] );
 		}
 

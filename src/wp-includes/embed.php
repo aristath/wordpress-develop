@@ -126,7 +126,7 @@ function wp_oembed_get( $url, $args = '' ) {
 function _wp_oembed_get_object() {
 	static $wp_oembed = null;
 
-	if ( is_null( $wp_oembed ) ) {
+	if ( null === $wp_oembed ) {
 		$wp_oembed = new WP_oEmbed();
 	}
 	return $wp_oembed;

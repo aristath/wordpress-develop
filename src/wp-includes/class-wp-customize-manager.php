@@ -1832,7 +1832,7 @@ final class WP_Customize_Manager {
 		}
 
 		$value = $setting->sanitize( $value );
-		if ( is_null( $value ) || is_wp_error( $value ) ) {
+		if ( null === $value || is_wp_error( $value ) ) {
 			return $default_value;
 		}
 
@@ -2356,7 +2356,7 @@ final class WP_Customize_Manager {
 			if ( $options['validate_capability'] && ! current_user_can( $setting->capability ) ) {
 				$validity = new WP_Error( 'unauthorized', __( 'Unauthorized to modify setting due to capability.' ) );
 			} else {
-				if ( is_null( $unsanitized_value ) ) {
+				if ( null === $unsanitized_value ) {
 					continue;
 				}
 				$validity = $setting->validate( $unsanitized_value );
@@ -2370,7 +2370,7 @@ final class WP_Customize_Manager {
 			}
 			if ( ! is_wp_error( $validity ) ) {
 				$value = $setting->sanitize( $unsanitized_value );
-				if ( is_null( $value ) ) {
+				if ( null === $value ) {
 					$validity = false;
 				} elseif ( is_wp_error( $value ) ) {
 					$validity = $value;

@@ -1218,7 +1218,7 @@ class wpdb {
 	 * @param mysqli|resource $dbh Optional database connection.
 	 */
 	public function select( $db, $dbh = null ) {
-		if ( is_null( $dbh ) ) {
+		if ( null === $dbh ) {
 			$dbh = $this->dbh;
 		}
 
@@ -1486,7 +1486,7 @@ class wpdb {
 	 * @return string|void Sanitized query string, if there is a query to prepare.
 	 */
 	public function prepare( $query, ...$args ) {
-		if ( is_null( $query ) ) {
+		if ( null === $query ) {
 			return;
 		}
 
@@ -1681,7 +1681,7 @@ class wpdb {
 			} elseif ( is_int( $value ) || is_float( $value ) ) {
 				$args_escaped[] = $value;
 			} else {
-				if ( ! is_scalar( $value ) && ! is_null( $value ) ) {
+				if ( ! is_scalar( $value ) && null !== $value ) {
 					wp_load_translations_early();
 					_doing_it_wrong(
 						'wpdb::prepare',
@@ -2567,7 +2567,7 @@ class wpdb {
 		$formats = array();
 		$values  = array();
 		foreach ( $data as $value ) {
-			if ( is_null( $value['value'] ) ) {
+			if ( null === $value['value'] ) {
 				$formats[] = 'NULL';
 				continue;
 			}
@@ -2638,7 +2638,7 @@ class wpdb {
 		$conditions = array();
 		$values     = array();
 		foreach ( $data as $field => $value ) {
-			if ( is_null( $value['value'] ) ) {
+			if ( null === $value['value'] ) {
 				$fields[] = "`$field` = NULL";
 				continue;
 			}
@@ -2647,7 +2647,7 @@ class wpdb {
 			$values[] = $value['value'];
 		}
 		foreach ( $where as $field => $value ) {
-			if ( is_null( $value['value'] ) ) {
+			if ( null === $value['value'] ) {
 				$conditions[] = "`$field` IS NULL";
 				continue;
 			}
@@ -2705,7 +2705,7 @@ class wpdb {
 		$conditions = array();
 		$values     = array();
 		foreach ( $where as $field => $value ) {
-			if ( is_null( $value['value'] ) ) {
+			if ( null === $value['value'] ) {
 				$conditions[] = "`$field` IS NULL";
 				continue;
 			}

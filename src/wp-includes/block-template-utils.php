@@ -874,7 +874,7 @@ function get_block_templates( $query = array(), $template_type = 'wp_template' )
 	 * @param string $template_type wp_template or wp_template_part.
 	 */
 	$templates = apply_filters( 'pre_get_block_templates', null, $query, $template_type );
-	if ( ! is_null( $templates ) ) {
+	if ( null !== $templates ) {
 		return $templates;
 	}
 
@@ -1010,7 +1010,7 @@ function get_block_template( $id, $template_type = 'wp_template' ) {
 	 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
 	 */
 	$block_template = apply_filters( 'pre_get_block_template', null, $id, $template_type );
-	if ( ! is_null( $block_template ) ) {
+	if ( null !== $block_template ) {
 		return $block_template;
 	}
 
@@ -1084,7 +1084,7 @@ function get_block_file_template( $id, $template_type = 'wp_template' ) {
 	 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
 	 */
 	$block_template = apply_filters( 'pre_get_block_file_template', null, $id, $template_type );
-	if ( ! is_null( $block_template ) ) {
+	if ( null !== $block_template ) {
 		return $block_template;
 	}
 

@@ -108,7 +108,7 @@ function render_block_core_template_part( $attributes ) {
 	$is_debug = defined( 'WP_DEBUG' ) && WP_DEBUG &&
 		defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY;
 
-	if ( is_null( $content ) && $is_debug ) {
+	if ( null === $content && $is_debug ) {
 		if ( ! isset( $attributes['slug'] ) ) {
 			// If there is no slug this is a placeholder and we dont want to return any message.
 			return;

@@ -569,7 +569,7 @@ function delete_metadata( $meta_type, $object_id, $meta_key, $meta_value = '', $
  */
 function get_metadata( $meta_type, $object_id, $meta_key = '', $single = false ) {
 	$value = get_metadata_raw( $meta_type, $object_id, $meta_key, $single );
-	if ( ! is_null( $value ) ) {
+	if ( null !== $value ) {
 		return $value;
 	}
 

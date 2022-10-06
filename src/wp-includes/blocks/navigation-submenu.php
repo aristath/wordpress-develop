@@ -38,10 +38,10 @@ function block_core_navigation_submenu_build_css_colors( $context, $attributes )
 	}
 
 	// If has text color.
-	if ( ! is_null( $named_text_color ) ) {
+	if ( null !== $named_text_color ) {
 		// Add the color class.
 		array_push( $colors['css_classes'], 'has-text-color', sprintf( 'has-%s-color', $named_text_color ) );
-	} elseif ( ! is_null( $custom_text_color ) ) {
+	} elseif ( null !== $custom_text_color ) {
 		// Add the custom color inline style.
 		$colors['css_classes'][]  = 'has-text-color';
 		$colors['inline_styles'] .= sprintf( 'color: %s;', $custom_text_color );
@@ -64,10 +64,10 @@ function block_core_navigation_submenu_build_css_colors( $context, $attributes )
 	}
 
 	// If has background color.
-	if ( ! is_null( $named_background_color ) ) {
+	if ( null !== $named_background_color ) {
 		// Add the background-color class.
 		array_push( $colors['css_classes'], 'has-background', sprintf( 'has-%s-background-color', $named_background_color ) );
-	} elseif ( ! is_null( $custom_background_color ) ) {
+	} elseif ( null !== $custom_background_color ) {
 		// Add the custom background-color inline style.
 		$colors['css_classes'][]  = 'has-background';
 		$colors['inline_styles'] .= sprintf( 'background-color: %s;', $custom_background_color );

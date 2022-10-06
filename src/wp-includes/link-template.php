@@ -1130,7 +1130,7 @@ function get_edit_term_link( $term, $taxonomy = '', $object_type = '' ) {
  * @return string|void HTML content.
  */
 function edit_term_link( $link = '', $before = '', $after = '', $term = null, $echo = true ) {
-	if ( is_null( $term ) ) {
+	if ( null === $term ) {
 		$term = get_queried_object();
 	} else {
 		$term = get_term( $term );

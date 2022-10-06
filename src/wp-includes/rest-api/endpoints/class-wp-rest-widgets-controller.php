@@ -211,7 +211,7 @@ class WP_REST_Widgets_Controller extends WP_REST_Controller {
 		$widget_id  = $request['id'];
 		$sidebar_id = wp_find_widgets_sidebar( $widget_id );
 
-		if ( is_null( $sidebar_id ) ) {
+		if ( null === $sidebar_id ) {
 			return new WP_Error(
 				'rest_widget_not_found',
 				__( 'No widget was found with that id.' ),
@@ -310,7 +310,7 @@ class WP_REST_Widgets_Controller extends WP_REST_Controller {
 		// Allow sidebar to be unset or missing when widget is not a WP_Widget.
 		$parsed_id     = wp_parse_widget_id( $widget_id );
 		$widget_object = $wp_widget_factory->get_widget_object( $parsed_id['id_base'] );
-		if ( is_null( $sidebar_id ) && $widget_object ) {
+		if ( null === $sidebar_id && $widget_object ) {
 			return new WP_Error(
 				'rest_widget_not_found',
 				__( 'No widget was found with that id.' ),
@@ -382,7 +382,7 @@ class WP_REST_Widgets_Controller extends WP_REST_Controller {
 		$widget_id  = $request['id'];
 		$sidebar_id = wp_find_widgets_sidebar( $widget_id );
 
-		if ( is_null( $sidebar_id ) ) {
+		if ( null === $sidebar_id ) {
 			return new WP_Error(
 				'rest_widget_not_found',
 				__( 'No widget was found with that id.' ),
@@ -699,7 +699,7 @@ class WP_REST_Widgets_Controller extends WP_REST_Controller {
 
 		if ( rest_is_field_included( 'rendered_form', $fields ) ) {
 			$rendered_form = wp_render_widget_control( $widget_id );
-			if ( ! is_null( $rendered_form ) ) {
+			if ( null !== $rendered_form ) {
 				$prepared['rendered_form'] = trim( $rendered_form );
 			}
 		}

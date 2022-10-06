@@ -276,7 +276,7 @@ final class WP_Comment {
 		$_args           = wp_parse_args( $args, $defaults );
 		$_args['parent'] = $this->comment_ID;
 
-		if ( is_null( $this->children ) ) {
+		if ( null === $this->children ) {
 			if ( $this->populated_children ) {
 				$this->children = array();
 			} else {

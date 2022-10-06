@@ -304,7 +304,7 @@ class WP_Http {
 			}
 		}
 
-		if ( is_null( $parsed_args['headers'] ) ) {
+		if ( null === $parsed_args['headers'] ) {
 			$parsed_args['headers'] = array();
 		}
 
