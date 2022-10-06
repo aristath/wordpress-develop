@@ -96,6 +96,15 @@
 		</properties>
 	</rule>
 
+	<!-- Ban some functions -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="is_null" value="null"/>
+            </property>
+        </properties>
+    </rule>
+
 	<!-- Exclude the build folder in the current directory. -->
 	<exclude-pattern type="relative">^build/*</exclude-pattern>
 
