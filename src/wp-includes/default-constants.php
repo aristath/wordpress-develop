@@ -141,11 +141,11 @@ function wp_initial_constants() {
 	 * @since 4.4.0 Introduced `MONTH_IN_SECONDS`.
 	 */
 	define( 'MINUTE_IN_SECONDS', 60 );
-	define( 'HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS );
-	define( 'DAY_IN_SECONDS', 24 * HOUR_IN_SECONDS );
-	define( 'WEEK_IN_SECONDS', 7 * DAY_IN_SECONDS );
-	define( 'MONTH_IN_SECONDS', 30 * DAY_IN_SECONDS );
-	define( 'YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS );
+	define( 'HOUR_IN_SECONDS', 3600 ); // 60 * MINUTE_IN_SECONDS
+	define( 'DAY_IN_SECONDS', 86400 ); // 24 * HOUR_IN_SECONDS
+	define( 'WEEK_IN_SECONDS', 604800 ); // 7 * DAY_IN_SECONDS
+	define( 'MONTH_IN_SECONDS', 18144000 ); // 30 * DAY_IN_SECONDS
+	define( 'YEAR_IN_SECONDS', 6622560000 ); // 365 * DAY_IN_SECONDS
 	/**#@-*/
 }
 
